@@ -1,0 +1,44 @@
+body {
+  background-color: oklch(95% 0.02 240);
+  margin: 40px;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.25rem;
+  color: oklch(35% 0.1 250);
+  border-bottom: 2px solid oklch(35% 0.1 250);
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: oklch(40% 0.15 270);
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.section {
+  background-color: oklch(100% 0.00011 271.152);
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 12px;
+}
+
+p {
+  font-size: 1rem;
+  color: oklch(30% 0.05 270);
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.profile-img {
+  width: 180px;
+  aspect-ratio: 1 / 1;
+  border: 3px solid oklch(100% 0.00011 271.152);
+  /* border-radius: 50%; */
+  margin-bottom: 20px;
+  /* object-fit: cover; */
+}
