@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
+:root {
+  --base: oklch(55% 0.2 266);
+  --secondary: oklch(44% 0.2 266);
+  --on-base: oklch(99% 0.005 95);
+  --surface: oklch(96% 0.025 90);
+  --nav-height: 120px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  background-color: var(--surface);
+  color: var(--base);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &::after {
+    content: '';
+    position: inherit;
+    background-color: var(--base);
+    width: 100%;
+    height: 2px;
+  }
+}
+
+main {
+  margin-top: var(--nav-height);
+  color: var(--secondary);
+}
+
+footer {
+  height: 300px;
+  color: var(--base);
+}
+
+.section {
+  max-width: 1600px;
+  min-width: 900px;
+  padding-inline: 40px;
+  margin-inline: auto;
+}
+
+.nav {
+  display: flex;
+  height: var(--nav-height);
+  padding-top: 42px;
+  align-items: baseline;
+  justify-content: space-between;
+  
+  &__logo {
+    font-family: "Crimson Text", sans-serif;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 100%;
+  }
+
+  &__links {
+    display: flex;
+    gap: 40px;
+    font-family: "Inter", sans-serif;
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 100%;
+  }
+}

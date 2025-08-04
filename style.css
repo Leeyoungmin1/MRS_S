@@ -1,0 +1,66 @@
+:root {
+  --primary-color: #1f3fc3;
+  --background-lighter-color: #fffefa;
+  --background-color: #faf3e0;
+  --card-width: 340px;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 60px;
+  background-color: var(--background-color);
+}
+
+hr {
+  border: none;
+  border-top: 2px solid var(--background-color);
+  margin: 12px 0 8px 0;
+}
+
+h1 {
+  color: var(--primary-color);
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+h3 {
+  color: var(--primary-color);
+  margin-bottom: 8px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+a::before {
+  content: '• ';
+}
+
+a:hover {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.session-cards {
+  width: fit-content;
+  display: grid;
+  grid-template-columns: repeat(4, var(--card-width));
+  margin-inline: auto;
+  gap: 20px;
+}
+
+.session-card {
+  width: var(--card-width);
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+  padding: 8px 12px;
+  background-color: var(--background-lighter-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}

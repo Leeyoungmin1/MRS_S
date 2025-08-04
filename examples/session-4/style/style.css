@@ -1,0 +1,195 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  margin-block: 10px 10px;
+}
+
+.purple {
+  color: oklch(60% 0.2 300);
+}
+
+.orange {
+  color: oklch(80% 0.2 50);
+}
+
+
+h3 {
+  margin-block: 0 10px;
+}
+
+.container {
+  background-color: oklch(90% 0.05 200);
+  padding-inline: 20px;
+  margin-bottom: 40px;
+}
+
+.item {
+  border: 2px solid oklch(60% 0.05 30);
+  background-color: oklch(90% 0.05 30);
+  padding: 10px;
+}
+
+.green {
+  background-color: oklch(90% 0.05 150);
+}
+
+.flex {
+  display: flex;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.grid {
+  display: grid;
+}
+
+.gtc {
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+}
+
+.gtc-1fr {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.gtc-100 {
+  grid-template-columns: 100px 100px 100px 100px 100px;
+}
+
+.gtr {
+  grid-template-rows: 1fr 2fr 1fr 1fr 1fr;
+}
+
+.gtr-1fr {
+  grid-template-rows: repeat(5, 1fr);
+}
+
+.h300 {
+  height: 300px;
+}
+
+.w100 {
+  width: 100px;
+}
+
+.ac {
+  align-content: center;
+}
+
+.ai {
+  align-items: center;
+}
+
+.jc {
+  justify-content: space-between;
+}
+
+.ji {
+  justify-items: center;
+}
+
+.gap {
+  gap: 10px;
+}
+
+.dir {
+  flex-direction: column-reverse;
+}
+
+.as-1 {
+  align-self: start;
+}
+.as-2 {
+  align-self: center;
+}
+.as-3 {
+  align-self: end;
+}
+.as-4 {
+  align-self: stretch;
+}
+.as-5 {
+  align-self: baseline;
+}
+
+.order-1 {
+  order: 1;
+}
+.order-2 {
+  order: 2;
+}
+.order-3 {
+  order: 3;
+}
+.order-4 {
+  order: 4;
+}
+.order-5 {
+  order: 5;
+}
+
+.grow-1 {
+  flex-grow: 1;
+}
+.grow-2 {
+  flex-grow: 2;
+}
+
+.shrink-1 {
+  width: 200px;
+  flex-shrink: 1;
+}
+.shrink-2 {
+  width: 200px;
+  flex-shrink: 2;
+}
+
+.basis-1 {
+  flex-basis: 300px;
+}
+.basis-2 {
+  flex-basis: 0;
+}
+
+.gc-gr {
+  grid-column: 2 / 4;
+  grid-row: 3 / 6;
+}
+
+.ga {
+  grid-area: 3 / 2 / 6 / 4;
+}
+
+.js-s {
+  justify-self: start;
+}
+.js-c {
+  justify-self: center;
+}
+.js-e {
+  justify-self: end;
+}
+.js-str {
+  justify-self: stretch;
+}
+
+.subgrid {
+  grid-area: 3 / 2 / 6 / 4;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
+}
