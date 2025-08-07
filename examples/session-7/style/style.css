@@ -1,11 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Pretendard:wght@400&display=swap");
+@supports (scrollbar-gutter: stable) {
+  main {
+    scrollbar-gutter: stable;
+  }
+}
 :root {
   --base: oklch(55% 0.2 266);
   --base-transparent: oklch(50% 0.2 266 / 0.5);
   --secondary: oklch(44% 0.2 266);
   --surface: oklch(97% 0.025 90);
   --nav-height: 120px;
+  --footer-height: 56px;
+  --scrollbar-width: 10px;
   --title-font: "Crimson Text", serif;
   --text-font: "Pretendard-Regular", "Inter", sans-serif;
 }
@@ -17,9 +24,18 @@
   margin: 0;
 }
 
+html,
 body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   background-color: var(--surface);
   color: var(--base);
+  height: 100%;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
@@ -41,7 +57,7 @@ p {
 header {
   width: 100%;
   top: 0;
-  position: fixed;
+  position: relative;
   background-color: var(--surface);
   border-bottom: 2px solid var(--base);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -49,19 +65,43 @@ header {
 }
 
 main {
-  margin-block: var(--nav-height) 56px;
   padding-block: 0px 10px;
+  padding-left: var(--scrollbar-width);
   color: var(--secondary);
   z-index: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+@-moz-document url-prefix() {
+  main {
+    scrollbar-width: thin;
+    scrollbar-color: var(--base) transparent;
+  }
+}
+main::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+main::-webkit-scrollbar-track {
+  background: transparent;
+}
+main::-webkit-scrollbar-thumb {
+  background-color: var(--base);
+  -webkit-transition: background-color 1s ease;
+  transition: background-color 1s ease;
+}
+main::-webkit-scrollbar-thumb:hover {
+  background-color: var(--secondary);
+}
+main::-webkit-scrollbar-button {
+  display: none;
 }
 
 footer {
-  position: fixed;
+  position: relative;
   bottom: 0;
   width: 100%;
   background-color: var(--base);
   padding-block: 10px;
-  margin-top: 120px;
   z-index: 2;
 }
 
