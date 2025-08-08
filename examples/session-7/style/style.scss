@@ -7,6 +7,7 @@
   }
 }
 
+// 공통 부분
 :root {
   --base: oklch(55% 0.2 266);
   --base-transparent: oklch(50% 0.2 266 / 0.5);
@@ -15,8 +16,8 @@
   --nav-height: 120px;
   --footer-height: 56px;
   --scrollbar-width: 10px;
-  --title-font: 'Crimson Text', serif;
-  --text-font: 'Pretendard-Regular', 'Inter', sans-serif;
+  --serif-font: 'Crimson Text', serif;
+  --sans-serif-font: 'Pretendard-Regular', 'Inter', sans-serif;
 }
 
 *,
@@ -68,13 +69,12 @@ header {
 main {
   padding-block: 0px 10px;
   padding-left: var(--scrollbar-width);
-  color: var(--secondary);
+  color: var(--base);
   z-index: 1;
   overflow-x: hidden;
   overflow-y: auto;
 
   @-moz-document url-prefix() {
-    scrollbar-width: thin;
     scrollbar-color: var(--base) transparent;
   }
 
@@ -89,7 +89,7 @@ main {
   &::-webkit-scrollbar-thumb {
     background-color: var(--base);
     transition: background-color 1s ease;
-    
+
     &:hover {
       background-color: var(--secondary);
     }
@@ -99,8 +99,6 @@ main {
     display: none;
   }
 }
-
-
 
 footer {
   position: relative;
@@ -113,7 +111,7 @@ footer {
 
 .section {
   max-width: 1600px;
-  min-width: 900px;
+  // min-width: 900px;
   padding-inline: 40px;
   margin-inline: auto;
 }
@@ -124,23 +122,23 @@ footer {
   padding-top: 42px;
   align-items: baseline;
   justify-content: space-between;
-  
+
   a {
     color: inherit;
     text-decoration: none;
   }
 
   &__logo {
-    font-family: var(--title-font);
+    font-family: var(--serif-font);
     font-size: 56px;
     font-weight: 700;
     line-height: 100%;
   }
-  
+
   &__links {
     display: flex;
     gap: 40px;
-    font-family: var(--text-font);
+    font-family: var(--sans-serif-font);
     text-transform: uppercase;
     font-size: 24px;
     font-weight: 600;
@@ -150,24 +148,26 @@ footer {
 }
 
 .container {
-  
+  //메인화면
   &__main {
     margin-bottom: 10px;
     width: 100%;
     position: relative;
-    
+
+    // 썸네일
     &--thumbnail {
       width: 100%;
       display: block;
     }
 
+    //썸네일 오버레이
     &--overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(to bottom, transparent 70%, var(--base) 105%);
       opacity: 0;
       transition: .5s ease;
-      
+
       &--info {
         display: flex;
         position: absolute;
@@ -178,12 +178,13 @@ footer {
         padding: 40px;
         margin-top: auto;
         color: #fff;
-        
+
         &--title {
           font-size: 36px;
           font-weight: 500;
           line-height: 100%;
         }
+
         &--date {
           font-size: 24px;
           line-height: 100%;
@@ -196,11 +197,12 @@ footer {
     }
   }
   
+
   &__others {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    
+
     &--content {
       position: relative;
       inset: 0;
@@ -222,18 +224,19 @@ footer {
         color: #fff;
         opacity: 0;
         transition: .5s ease;
-        
+
         &--title {
           font-size: 32px;
           font-weight: 500;
           line-height: 100%;
           margin-bottom: 16px;
         }
+
         &--date {
           font-size: 18px;
           line-height: 100%;
         }
-    
+
         &:hover {
           opacity: 1;
         }
@@ -242,13 +245,14 @@ footer {
     }
   }
   
+  // 공통부분(하단)
   &__bio {
     display: flex;
     align-items: center;
     justify-content: space-between;
     color: var(--surface);
-    font-family: var(--text-font);
-    
+    font-family: var(--sans-serif-font);
+
     &--info {
       &--name {
         font-size: 18px;
@@ -257,7 +261,7 @@ footer {
         letter-spacing: 8px;
         margin-bottom: 4px;
       }
-      
+
       &--email {
         font-size: 14px;
         font-weight: 400;
@@ -277,4 +281,159 @@ footer {
       }
     }
   }
+
+  //프로필
+  &__profile {
+    display: grid;
+    max-width: 1000px;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    gap: 60px 60px;
+    margin-top: 8vh;
+    margin-inline: auto;
+
+    &--img {
+      position: relative;
+
+      & img {
+        display: block;
+        aspect-ratio: 1;
+        object-fit: cover;
+        object-position: top;
+        border-radius: 10px;
+        pointer-events: none;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: var(--surface);
+        mix-blend-mode: color;
+      }
+    }
+
+    &--info {
+      display: grid;
+      align-content: space-between;
+      height: 100%;
+      padding-top: 4px;
+      margin-block: auto;
+      font-family: var(--sans-serif-font);
+
+      &--top {
+        &--keyword {
+          font-size: 28px;
+          line-height: 100%;
+        }
+
+        &--name {
+          justify-self: end;
+          font-size: 72px;
+          font-weight: 700;
+          line-height: 100%;
+          margin-top: 10px;
+        }
+      }
+
+      &--bottom {
+        &--job {
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 100%;
+        }
+
+        &--education {
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 100%;
+          margin-top: 8px;
+        }
+
+        &--caption {
+          margin-top: 24px;
+          font-size: 18px;
+          font-weight: 500;
+          word-break: keep-all;
+          text-indent: 8px;
+        }
+      }
+    }
+
+    &--title {
+      font-size: 28px;
+      font-weight: 700;
+      font-family: var(--serif-font);
+      margin-bottom: 24px;
+    }
+
+    &--skills {
+
+      &--items {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        grid-template-rows: repeat(2, 1fr);
+        
+        &--item {
+          display: grid;
+          grid-template-columns: subgrid;
+          justify-items: center;
+          
+          & > img {
+            width: 50px;
+            pointer-events: none;
+          }
+          
+          &--text {
+            font-family: var(--sans-serif-font);
+            font-size: 16px;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 8px;
+          }
+        }
+      }
+    }
+
+    &--works {
+
+      &--items {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 16px;
+        justify-content: space-between;
+        font-size: 16px;
+        line-height: 100%;
+        
+        &--year {
+          grid-column: 1;
+          font-weight: 500;
+        }
+
+        &--work {
+          grid-column: 2;
+        }
+      }
+    }
+  }
+
+  //프로젝트 아카이브
+
+
+  //프로젝트 개별
+
+}
+
+//메인페이지용
+@media (max-width: 1500px) {
+  
+}
+//프로필용
+@media (max-width: 1100px) {
+  
+}
+//헤더푸터용
+@media (max-width: 920px) {
+  
 }
