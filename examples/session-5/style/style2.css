@@ -1,0 +1,111 @@
+/* 초기화 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, sans-serif;
+}
+
+/* 레이아웃 */
+header {
+  padding: 16px;
+  background: #f4f4f4;
+  border-bottom: 1px solid #ddd;
+}
+header h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.container {
+  padding: 40px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* 버튼 기본 스타일 */
+.btn {
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  color: #fff;
+}
+
+/* 상태별 스타일 */
+.btn.primary {
+  background: #2563eb;
+}
+.btn.primary:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+.btn.primary:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* 보조 버튼 */
+.btn.secondary {
+  background: #6b7280;
+}
+.btn.secondary:hover:not(:disabled) {
+  background: #4b5563;
+}
+
+/* 아웃라인 버튼 */
+.btn.outline {
+  background: transparent;
+  border: 2px solid #2563eb;
+  color: #2563eb;
+}
+.btn.outline:hover:not(:disabled) {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* 위험 버튼 */
+.btn.danger {
+  background: #dc2626;
+}
+.btn.danger:hover:not(:disabled) {
+  background: #b91c1c;
+}
+
+/* 비활성 상태 */
+.btn:disabled {
+  background: #d1d5db;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* ===== 추가 디자인 4종 ===== */
+
+/* 1. 그림자 강조 */
+.btn.shadow {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.btn.shadow:hover:not(:disabled) {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* 2. 둥근 버튼 */
+.btn.round {
+  border-radius: 50px;
+  padding: 10px 28px;
+}
+
+/* 3. 그라디언트 버튼 */
+.btn.gradient {
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+}
+.btn.gradient:hover:not(:disabled) {
+  background: linear-gradient(135deg, #4338ca, #0891b2);
+}
