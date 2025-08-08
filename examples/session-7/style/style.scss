@@ -44,6 +44,7 @@ body {
 
 img {
   max-width: 100%;
+  pointer-events: none;
 }
 
 h3 {
@@ -104,7 +105,7 @@ footer {
   bottom: 0;
   width: 100%;
   background-color: var(--base);
-  padding-block: 10px;
+  padding-block: 8px 6px;
   z-index: 2;
 }
 
@@ -262,18 +263,29 @@ footer {
 
     &--info {
       &--name {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 500;
         line-height: 100%;
         letter-spacing: 8px;
-        margin-bottom: 4px;
+        margin-bottom: 2px;
       }
 
       &--email {
+        padding: 2px 6px;
+        margin-left: -6px;
+        border-radius: 99px;
         font-size: 14px;
         font-weight: 400;
         line-height: 100%;
         letter-spacing: 1px;
+        background-color: var(--base);
+        color: var(--surface);
+        transition: background-color 0.5s ease, color 0.5s ease;
+
+        &:hover {
+          background-color: var(--surface);
+          color: var(--base);
+        }
       }
     }
 
@@ -283,6 +295,7 @@ footer {
       gap: 16px;
 
       &--icon {
+        display: block;
         width: 32px;
         height: 32px;
       }
@@ -296,8 +309,7 @@ footer {
     grid-template-columns: repeat(2, 1fr);
     justify-content: center;
     gap: 60px 60px;
-    margin-top: 8vh;
-    margin-inline: auto;
+    margin: 8vh auto;
 
     &--img {
       position: relative;
@@ -308,7 +320,6 @@ footer {
         object-fit: cover;
         object-position: top;
         border-radius: 10px;
-        pointer-events: none;
       }
 
       &::after {
@@ -388,7 +399,6 @@ footer {
 
           & img {
             width: 50px;
-            pointer-events: none;
           }
 
           &--text {
@@ -405,26 +415,27 @@ footer {
     &--works {
       &--items {
         display: grid;
-        grid-template-columns: auto auto;
-        gap: 16px;
-        justify-content: space-between;
+        grid-template-columns: auto 1fr;
+        gap: 16px 36px;
+
         font-size: 16px;
         line-height: 100%;
 
         &--year {
           grid-column: 1;
-          font-weight: 500;
+          font-weight: 700;
         }
 
         &--work {
           grid-column: 2;
+          font-weight: 400;
         }
       }
     }
   }
 
   //프로젝트 아카이브
-  &__projects {
+  &__all-projects {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5vh;
@@ -482,7 +493,76 @@ footer {
   }
 
   //프로젝트 개별
+  &__each-project {
+    margin-top: 24px;
 
+    &--info {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      font-family: var(--sans-serif-font);
+
+      &--title {
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 100%;
+      }
+      
+      &--tag {
+        display: block;
+        align-items: center;
+        width: min-content;
+        background-color: var(--base);
+        color: var(--surface);
+        border-radius: 6px;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 100%;
+        white-space: nowrap;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 12px 14px;
+      }
+      
+      &--desc {
+        display: grid;
+        gap: 8px;
+        grid-column: 1 / 3;
+        margin-block: 12px 28px;
+
+        &--program {
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 100%;
+        }
+        &--date {
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 100%;
+        }
+
+        &--text {
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 140%;
+          text-align: justify;
+          word-break: keep-all;
+          text-indent: 8px;
+          margin-top: 8px;
+        }
+      }
+    }
+
+    &--cuts {
+      display: grid;
+      gap: 4px;
+
+      &--cut {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
 }
 
 .thumbnail {
