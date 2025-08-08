@@ -42,7 +42,6 @@ body {
   user-select:none;
 }
 
-
 img {
   max-width: 100%;
 }
@@ -153,6 +152,17 @@ footer {
     margin-bottom: 10px;
     width: 100%;
     position: relative;
+    overflow: hidden;
+    
+    &:hover {
+      .thumbnail {
+        filter: blur(2px);
+      }
+    
+      .overlay-1 {
+        opacity: 1;
+      }
+    }
 
     // 썸네일
     &--thumbnail {
@@ -161,42 +171,29 @@ footer {
     }
 
     //썸네일 오버레이
-    &--overlay {
+    &--info {
+      display: flex;
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, transparent 70%, var(--base) 105%);
-      opacity: 0;
-      transition: .5s ease;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 40px;
+      margin-top: auto;
+      color: var(--surface);
 
-      &--info {
-        display: flex;
-        position: absolute;
-        inset: 0;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-end;
-        padding: 40px;
-        margin-top: auto;
-        color: #fff;
-
-        &--title {
-          font-size: 36px;
-          font-weight: 500;
-          line-height: 100%;
-        }
-
-        &--date {
-          font-size: 24px;
-          line-height: 100%;
-        }
+      &--title {
+        font-size: 36px;
+        font-weight: 500;
+        line-height: 100%;
       }
 
-      &:hover {
-        opacity: 1;
+      &--date {
+        font-size: 24px;
+        line-height: 100%;
       }
     }
   }
-  
 
   &__others {
     display: grid;
@@ -206,6 +203,17 @@ footer {
     &--content {
       position: relative;
       inset: 0;
+      overflow: hidden;
+
+      &:hover {
+        .thumbnail {
+          filter: blur(2px);
+        }
+
+        .overlay-2 {
+          opacity: 1;
+        }
+      }
 
       &--thumbnail {
         height: 100%;
@@ -213,7 +221,7 @@ footer {
         overflow: hidden;
       }
 
-      &--overlay--info {
+      &--info {
         position: absolute;
         inset: 0;
         display: grid;
@@ -221,9 +229,8 @@ footer {
         align-content: center;
         text-align: center;
         background: var(--base-transparent);
-        color: #fff;
+        color: var(--surface);
         opacity: 0;
-        transition: .5s ease;
 
         &--title {
           font-size: 32px;
@@ -244,7 +251,7 @@ footer {
       
     }
   }
-  
+
   // 공통부분(하단)
   &__bio {
     display: flex;
@@ -368,23 +375,22 @@ footer {
     }
 
     &--skills {
-
       &--items {
         display: grid;
         gap: 16px;
         grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
         grid-template-rows: repeat(2, 1fr);
-        
+
         &--item {
           display: grid;
           grid-template-columns: subgrid;
           justify-items: center;
-          
-          & > img {
+
+          & img {
             width: 50px;
             pointer-events: none;
           }
-          
+
           &--text {
             font-family: var(--sans-serif-font);
             font-size: 16px;
@@ -397,7 +403,6 @@ footer {
     }
 
     &--works {
-
       &--items {
         display: grid;
         grid-template-columns: auto auto;
@@ -405,7 +410,7 @@ footer {
         justify-content: space-between;
         font-size: 16px;
         line-height: 100%;
-        
+
         &--year {
           grid-column: 1;
           font-weight: 500;
@@ -419,10 +424,90 @@ footer {
   }
 
   //프로젝트 아카이브
+  &__projects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5vh;
 
+    &--project {
+      position: relative;
+      align-items: stretch;
+      justify-content: center;
+      flex-grow: 1;
+      flex-shrink: 1;
+      height: 25vh;
+      overflow: hidden;
+
+      &:hover {
+        .thumbnail {
+          filter: blur(2px);
+        }
+
+        .overlay-1 {
+          opacity: 1;
+        }
+      }
+
+      &--thumbnail {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      &--info {
+        display: flex;
+        position: absolute;
+        inset: 0;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 12px;
+        margin-top: auto;
+        color: var(--surface);
+
+        &--title {
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 100%;
+        }
+
+        &--date {
+          font-size: 16px;
+          font-weight: 300;
+          line-height: 100%;
+        }
+      }
+    }
+  }
 
   //프로젝트 개별
 
+}
+
+.thumbnail {
+  transition: .5s ease;
+}
+
+
+.overlay-1 {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 70%, var(--base) 105%);
+  opacity: 0;
+  transition: .5s ease;
+}
+
+.overlay-2 {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: min-content min-content;
+  align-content: center;
+  text-align: center;
+  background: var(--base-transparent);
+  opacity: 0;
+  transition: .5s ease;
 }
 
 //메인페이지용
