@@ -10,14 +10,13 @@
 // 공통 부분
 :root {
   --base: oklch(55% 0.2 266);
-  --base-transparent: oklch(50% 0.2 266 / 0.5);
-  --secondary: oklch(44% 0.2 266);
+  --base-transparent: oklch(50% 0.2 266 / 0.7);
+  --secondary: oklch(85% 0.2 26);
   --surface: oklch(97% 0.025 90);
-  --nav-height: 120px;
   --footer-height: 56px;
   --scrollbar-width: 10px;
   --serif-font: 'Crimson Text', serif;
-  --sans-serif-font: 'Pretendard-Regular', 'Inter', sans-serif;
+  --sans-serif-font: 'Pretendard', 'Inter', sans-serif;
 }
 
 *,
@@ -58,6 +57,7 @@ p {
 
 header {
   width: 100%;
+  height: max(10vh, 80px);
   top: 0;
   position: relative;
   background-color: var(--surface);
@@ -67,6 +67,7 @@ header {
 }
 
 main {
+  position: relative;
   padding-block: 0px 10px;
   padding-left: var(--scrollbar-width);
   color: var(--base);
@@ -74,6 +75,7 @@ main {
   overflow-x: hidden;
   overflow-y: auto;
 
+  // 스크롤바
   @-moz-document url-prefix() {
     scrollbar-color: var(--base) transparent;
   }
@@ -87,11 +89,11 @@ main {
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--base);
-    transition: background-color 1s ease;
+    background-color: var(--base-transparent);
+    transition: background-color 1000 ease;
 
     &:hover {
-      background-color: var(--secondary);
+      background-color: var(--base);
     }
   }
 
@@ -111,17 +113,21 @@ footer {
 
 .section {
   max-width: 1600px;
-  // min-width: 900px;
   padding-inline: 40px;
   margin-inline: auto;
 }
 
 .nav {
-  display: flex;
-  height: var(--nav-height);
-  padding-top: 42px;
-  align-items: baseline;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: min-content;
+  gap: 60px;
+  height: 100%;
+  padding-bottom: 18px;
+  margin-top: auto;
+  align-content: end;
+  align-items: end;
+  justify-items: space-between;
 
   a {
     color: inherit;
@@ -132,12 +138,14 @@ footer {
     font-family: var(--serif-font);
     font-size: 56px;
     font-weight: 700;
-    line-height: 100%;
+    line-height: 70%;
   }
 
   &__links {
     display: flex;
-    gap: 40px;
+    justify-content: end;
+    flex-wrap: wrap;
+    gap: 8px 40px;
     font-family: var(--sans-serif-font);
     text-transform: uppercase;
     font-size: 24px;
@@ -311,35 +319,39 @@ footer {
     gap: 60px 60px;
     margin: 8vh auto;
 
-    &--img {
-      position: relative;
-
-      & img {
-        display: block;
-        aspect-ratio: 1;
-        object-fit: cover;
-        object-position: top;
-        border-radius: 10px;
-      }
-
-      &::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-color: var(--surface);
-        mix-blend-mode: color;
-      }
-    }
-
     &--info {
       display: grid;
+      grid-area: 1 / 1 / 2 / 3;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr auto auto auto;
       align-content: space-between;
+      column-gap: 60px;
       height: 100%;
-      padding-top: 4px;
       margin-block: auto;
       font-family: var(--sans-serif-font);
 
-      &--top {
+      &--img {
+        position: relative;
+        grid-row: 1 / -1;
+
+        & img {
+          display: block;
+          aspect-ratio: 1;
+          object-fit: cover;
+          object-position: top;
+          border-radius: 10px;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-color: var(--surface);
+          mix-blend-mode: color;
+        }
+      }
+
+      &--intro {
         &--keyword {
           font-size: 28px;
           line-height: 100%;
@@ -354,27 +366,26 @@ footer {
         }
       }
 
-      &--bottom {
-        &--job {
-          font-size: 16px;
-          font-weight: 700;
-          line-height: 100%;
-        }
+      &--job {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 100%;
+      }
 
-        &--education {
-          font-size: 16px;
-          font-weight: 700;
-          line-height: 100%;
-          margin-top: 8px;
-        }
+      &--education {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 100%;
+        margin-top: 8px;
+      }
 
-        &--caption {
-          margin-top: 24px;
-          font-size: 18px;
-          font-weight: 500;
-          word-break: keep-all;
-          text-indent: 8px;
-        }
+      &--caption {
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 120%;
+        word-break: keep-all;
+        text-indent: 8px;
       }
     }
 
@@ -494,7 +505,7 @@ footer {
 
   //프로젝트 개별
   &__each-project {
-    margin-top: 24px;
+    margin-top: 36px;
 
     &--info {
       display: grid;
@@ -590,15 +601,190 @@ footer {
   transition: .5s ease;
 }
 
-//메인페이지용
-@media (max-width: 1500px) {
-  
+//커스텀 커서
+#custom-cursor {
+  position: fixed;
+  width: 28px;
+  height: 28px;
+  background-color: var(--secondary);
+  border: 2px solid var(--surface);
+  border-radius: 4px 50% 50% 50%;
+  pointer-events: none;
+  z-index: 99;
+  transition: 
+    background-color 150ms, 
+    opacity 500ms, 
+    width 200ms, 
+    height 200ms,
+  ;
 }
-//프로필용
-@media (max-width: 1100px) {
-  
+
+#custom-cursor.hover {
+  width: 40px;
+  height: 40px;
+  opacity: .8 !important;
 }
-//헤더푸터용
-@media (max-width: 920px) {
-  
+
+#custom-cursor.click {
+  background-color: var(--base);
+}
+
+#screensaver {
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 300ms;
+  pointer-events: none;
+}
+
+@media (max-width: 1615px) {
+  main {
+    .section {
+      padding-inline: 30px;
+    }
+  }
+}
+
+@media (max-width: 940px) {
+  .container {
+    &__profile {
+      grid-template-columns: 1fr;
+      column-gap: 0;
+      margin: 5vh auto;
+
+      
+      &--info {
+        grid-template-columns: 1fr;
+
+        &--img {
+          grid-column: 1 / -1;
+          grid-row: 4;
+          padding-top: 16px;
+        }
+
+        &--intro {
+          grid-column: 1 / -1;
+          grid-row: 1;
+          padding-bottom: 20px;
+          grid-template-columns: min-content min-content;
+        }
+
+        &--job {
+          grid-column: 1 / -1;
+          grid-row: 2;
+        }
+
+        &--education {
+          grid-column: 1 / -1;
+          grid-row: 3;
+        }
+      }
+
+      &--skills {
+        grid-column: 1 / -1;
+
+        &--items {
+          grid-template-rows: 1fr;
+        }
+      }
+
+      &--works {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+}
+
+@media (max-width: 620px) {  
+  main {
+    .section {
+      padding-inline: 4px;
+    }
+  }
+  .section {
+    padding-inline: 12px;
+  }
+
+  .nav {
+    padding-bottom: 12px;
+
+    &__logo {
+      font-size: 40px;
+    }
+
+    &__links {
+      font-size: 20px;
+      column-gap: 12px;
+    }
+  }
+
+  .container {
+    &__main {
+      .overlay-1 {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        grid-template-rows: min-content min-content;
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        background: var(--base-transparent);
+      }
+
+      &--info {
+        position: relative;
+        inset: 0;
+        overflow: hidden;
+
+        &--title {
+          font-size: 32px;
+          margin-bottom: 16px;
+        }
+        &--date {
+          font-size: 18px;
+        }
+      }
+    }
+
+    &__others {
+      grid-template-columns: 1fr;
+    }
+
+    &__each-project {
+      margin-top: 16px;
+
+      &--info {
+        &--title {
+          font-size: 24px;
+        }
+        &--tag {
+          font-size: 16px;
+        }
+        &--desc {
+          &--text {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    &__profile {
+      margin: 24px auto;
+
+      &--info {
+        &--intro {
+          &--keyword {
+            font-size: 24px;
+          }
+          &--name {
+            font-size: 56px;
+          }
+        }
+
+        &--caption {
+          margin-top: 16px;
+          font-size: 16px;
+        }
+      }
+    }
+  }
 }

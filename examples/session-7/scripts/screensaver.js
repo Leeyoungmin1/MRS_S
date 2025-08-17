@@ -1,0 +1,122 @@
+let idleTimer;
+const idleDelay = 1000 * 3; // 대기시간
+const main = document.querySelector('main');
+const screensaver = document.createElement('div');
+screensaver.id = 'screensaver';
+main.appendChild(screensaver);
+
+const shapeCount = 30;   // 최대 개수
+const cellSize = 180;    // 개별 이미지 크기
+let cells = [];
+let saverInterval;
+
+// 도형 파일
+const shapes = Array.from({ length: 25 }, (_, i) => 
+  `/examples/session-7/assets/shapes/shape_${String(i+1).padStart(2, "0")}.svg`
+);
+
+// 랜덤 색상
+function randomColor() {
+  const h = Math.random() * 360;
+  return `oklch(80% 0.2 ${h})`;
+}
+
+// 그리드 초기화
+function initGrid() {
+  const preCols = Math.floor(main.clientWidth / cellSize);
+  const cols = main.clientWidth / preCols;
+  const rows = Math.floor(main.clientHeight / cellSize);
+  cells = [];
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < preCols; c++) {
+      cells.push({ r, c, used: false, size: cols });
+    }
+  }
+}
+
+// 영역 제한(스크롤 대응)
+function updateScreensaverBounds() {
+  const rect = main.getBoundingClientRect();
+  screensaver.style.position = 'fixed';
+  screensaver.style.top = `${rect.top}px`;
+  screensaver.style.left = `${rect.left}px`;
+  screensaver.style.width = `${rect.width}px`;
+  screensaver.style.height = `${rect.height}px`;
+}
+
+
+// 랜덤 칸 선정
+function getRandomCell() {
+  const empty = cells.filter(cell => !cell.used);
+  if (empty.length === 0) return null;
+  const chosen = empty[Math.floor(Math.random() * empty.length)];
+  chosen.used = true;
+  return chosen;
+}
+
+// 랜덤 도형 생성
+async function addRandomShape() {
+  if (screensaver.querySelectorAll(".shape").length >= shapeCount) return;
+  const shapeUrl = shapes[Math.floor(Math.random() * shapes.length)];
+  const cell = getRandomCell();
+  if (!cell) return;
+
+  try {
+    //SVG를 수정 가능하게 만드는 작업
+    const res = await fetch(shapeUrl);                    // SVG 불러오기
+    const text = await res.text();                        // SVG 텍스트로 가져와서
+    const parser = new DOMParser();                       // DOM 객체로 변환 후
+    const svgDoc = parser.parseFromString(text, "image/svg+xml");   // SVG 형식으로 변환
+    const svgEl = svgDoc.documentElement;                 // SVG 태그 변수화
+
+    svgEl.classList.add("shape");
+    const size = cell.size - 10;
+    svgEl.style.position = "absolute";
+    svgEl.style.left = `${cell.c * cell.size + 10}px`;
+    svgEl.style.top = `${cell.r * cell.size + 10}px`;
+    svgEl.style.width = `${size}px`;
+    svgEl.style.height = `${size}px`;
+    const fillColor = randomColor();
+    svgEl.querySelectorAll("*").forEach(el => {
+      if (el.tagName !== "svg") {
+        el.setAttribute("fill", fillColor);
+      }
+    });
+
+    screensaver.appendChild(svgEl);
+  } catch (err) {
+    console.error("SVG load failed: ", err);
+  }
+}
+
+// 화면보호기 시작
+function startScreensaver() {
+  initGrid();
+  updateScreensaverBounds();
+  screensaver.innerHTML = "";
+  screensaver.style.opacity = "1";
+  saverInterval = setInterval(addRandomShape, 4000);
+}
+
+// 화면보호기 종료
+function stopScreensaver() {
+  screensaver.style.opacity = "0";
+  screensaver.innerHTML = "";
+  clearInterval(saverInterval);
+}
+
+// 타이머 초기화
+function resetIdleTimer() {
+  clearTimeout(idleTimer);
+  stopScreensaver();
+  idleTimer = setTimeout(startScreensaver, idleDelay);
+}
+
+// 활동 시 초기화
+["pointermove", "pointerdown", "keydown", "touchstart"].forEach(evt =>
+  document.addEventListener(evt, resetIdleTimer)
+);
+window.addEventListener('resize', resetIdleTimer)
+
+resetIdleTimer(); // 초기 실행
