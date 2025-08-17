@@ -11,8 +11,10 @@ let cells = [];
 let saverInterval;
 
 // 도형 파일
-const basePath = window.location.origin + '/examples/session-7/assets/shapes/';
-const shapes = Array.from({ length: 25 }, (_, i) => 
+const scriptPath = document.currentScript.src;  // 현재 JS 파일 URL
+const basePath = scriptPath.replace(/screensaver\.js$/, '../assets/shapes/'); 
+
+const shapes = Array.from({ length: 25 }, (_, i) =>
   `${basePath}shape_${String(i+1).padStart(2, "0")}.svg`
 );
 
