@@ -11,8 +11,9 @@ let cells = [];
 let saverInterval;
 
 // 도형 파일
+const basePath = window.location.origin + '/examples/session-7/assets/shapes/';
 const shapes = Array.from({ length: 25 }, (_, i) => 
-  `assets/shapes/shape_${String(i+1).padStart(2, "0")}.svg`
+  `${basePath}shape_${String(i+1).padStart(2, "0")}.svg`
 );
 
 // SVG 캐시
