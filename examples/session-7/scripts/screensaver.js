@@ -12,7 +12,7 @@ let saverInterval;
 
 // 도형 파일
 const shapes = Array.from({ length: 25 }, (_, i) => 
-  `/examples/session-7/assets/shapes/shape_${String(i+1).padStart(2, "0")}.svg`
+  `assets/shapes/shape_${String(i+1).padStart(2, "0")}.svg`
 );
 
 // 랜덤 색상
