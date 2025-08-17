@@ -646,6 +646,37 @@ footer {
 
 @media (max-width: 940px) {
   .container {
+    &__main {
+      .overlay-1 {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        grid-template-rows: min-content min-content;
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        background: var(--base-transparent);
+      }
+
+      &--info {
+        position: relative;
+        inset: 0;
+        overflow: hidden;
+
+        &--title {
+          font-size: 32px;
+          margin-bottom: 16px;
+        }
+        &--date {
+          font-size: 18px;
+        }
+      }
+    }
+
+    &__others {
+      grid-template-columns: 1fr;
+    }
+
     &__profile {
       grid-template-columns: 1fr;
       column-gap: 0;
@@ -718,37 +749,6 @@ footer {
   }
 
   .container {
-    &__main {
-      .overlay-1 {
-        position: absolute;
-        inset: 0;
-        display: grid;
-        grid-template-rows: min-content min-content;
-        justify-content: center;
-        align-content: center;
-        text-align: center;
-        background: var(--base-transparent);
-      }
-
-      &--info {
-        position: relative;
-        inset: 0;
-        overflow: hidden;
-
-        &--title {
-          font-size: 32px;
-          margin-bottom: 16px;
-        }
-        &--date {
-          font-size: 18px;
-        }
-      }
-    }
-
-    &__others {
-      grid-template-columns: 1fr;
-    }
-
     &__each-project {
       margin-top: 16px;
 
