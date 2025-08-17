@@ -15,6 +15,9 @@ const shapes = Array.from({ length: 25 }, (_, i) =>
   `assets/shapes/shape_${String(i+1).padStart(2, "0")}.svg`
 );
 
+// SVG 캐시
+const svgCache = {}; // URL -> SVG Element
+
 // 랜덤 색상
 function randomColor() {
   const h = Math.random() * 360;
@@ -45,7 +48,6 @@ function updateScreensaverBounds() {
   screensaver.style.height = `${rect.height}px`;
 }
 
-
 // 랜덤 칸 선정
 function getRandomCell() {
   const empty = cells.filter(cell => !cell.used);
@@ -56,38 +58,29 @@ function getRandomCell() {
 }
 
 // 랜덤 도형 생성
-async function addRandomShape() {
+function addRandomShape() {
   if (screensaver.querySelectorAll(".shape").length >= shapeCount) return;
   const shapeUrl = shapes[Math.floor(Math.random() * shapes.length)];
   const cell = getRandomCell();
-  if (!cell) return;
+  if (!cell || !svgCache[shapeUrl]) return;
 
-  try {
-    //SVG를 수정 가능하게 만드는 작업
-    const res = await fetch(shapeUrl);                    // SVG 불러오기
-    const text = await res.text();                        // SVG 텍스트로 가져와서
-    const parser = new DOMParser();                       // DOM 객체로 변환 후
-    const svgDoc = parser.parseFromString(text, "image/svg+xml");   // SVG 형식으로 변환
-    const svgEl = svgDoc.documentElement;                 // SVG 태그 변수화
+  const svgEl = svgCache[shapeUrl].cloneNode(true);   // 캐시에서 복제
+  svgEl.classList.add("shape");
 
-    svgEl.classList.add("shape");
-    const size = cell.size - 10;
-    svgEl.style.position = "absolute";
-    svgEl.style.left = `${cell.c * cell.size + 10}px`;
-    svgEl.style.top = `${cell.r * cell.size + 10}px`;
-    svgEl.style.width = `${size}px`;
-    svgEl.style.height = `${size}px`;
-    const fillColor = randomColor();
-    svgEl.querySelectorAll("*").forEach(el => {
-      if (el.tagName !== "svg") {
-        el.setAttribute("fill", fillColor);
-      }
-    });
+  const size = cell.size - 10;
+  svgEl.style.position = "absolute";
+  svgEl.style.left = `${cell.c * cell.size + 10}px`;
+  svgEl.style.top = `${cell.r * cell.size + 10}px`;
+  svgEl.style.width = `${size}px`;
+  svgEl.style.height = `${size}px`;
 
-    screensaver.appendChild(svgEl);
-  } catch (err) {
-    console.error("SVG load failed: ", err);
-  }
+  // 랜덤 색상
+  const fillColor = randomColor();
+  svgEl.querySelectorAll("*").forEach(el => {
+    if (el.tagName !== "svg") el.setAttribute("fill", fillColor);
+  });
+
+  screensaver.appendChild(svgEl);
 }
 
 // 화면보호기 시작
@@ -113,10 +106,28 @@ function resetIdleTimer() {
   idleTimer = setTimeout(startScreensaver, idleDelay);
 }
 
-// 활동 시 초기화
+// SVG 프리로드
+async function preloadSVGs() {
+  for (const shapeUrl of shapes) {
+    try {
+      const res = await fetch(shapeUrl);                   // SVG 불러오기
+      const text = await res.text();                       // 텍스트로 가져오기
+      const parser = new DOMParser();                      // DOM 변환 준비
+      const svgDoc = parser.parseFromString(text, "image/svg+xml"); // SVG로 파싱
+      svgCache[shapeUrl] = svgDoc.documentElement.cloneNode(true); // 캐시에 저장
+    } catch (err) {
+      console.error("SVG preload failed:", shapeUrl, err);
+    }
+  }
+}
+
+// 활동 이벤트 시 초기화
 ["pointermove", "pointerdown", "keydown", "touchstart"].forEach(evt =>
   document.addEventListener(evt, resetIdleTimer)
 );
-window.addEventListener('resize', resetIdleTimer)
+window.addEventListener('resize', resetIdleTimer);
 
-resetIdleTimer(); // 초기 실행
+window.addEventListener("DOMContentLoaded", async () => {
+  await preloadSVGs(); 
+  resetIdleTimer(); // 초기 실행
+});
