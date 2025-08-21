@@ -46,11 +46,6 @@ img {
   pointer-events: none;
 }
 
-h3 {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
-
 p {
   color: var(--base);
 }
@@ -478,7 +473,7 @@ footer {
       }
 
       &--info {
-        display: flex;
+        display: flex;  
         position: absolute;
         inset: 0;
         flex-direction: row;

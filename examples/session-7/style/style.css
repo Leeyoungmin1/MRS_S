@@ -45,11 +45,6 @@ img {
   pointer-events: none;
 }
 
-h3 {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
-
 p {
   color: var(--base);
 }
