@@ -188,3 +188,12 @@ body {
     color: #90caf9;
   }
 }
+
+/* [신규 기능]다크모드 지원: light-dark() 함수 사용 */
+body {
+  background-color: light-dark(lightgray, #121212);
+  color: light-dark(black, white);
+}
+h1 {
+  color: light-dark(darkblue, #90caf9);
+}

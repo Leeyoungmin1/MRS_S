@@ -72,15 +72,38 @@ h2 {
   gap: 20px;
 }
 
-:root { 
+/* :root { 
   --primary-color: oklch(80% 0.2 50);
   --secondary-color: oklch(80% 0.2 200);
   --triary-color: oklch(80% 0.2 30);
   --quaternary-color: oklch(80% 0.2 150);
+} */
+
+/* [신규 기능] CSS 사용자 정의 속성 :root 대체 */
+@property --primary-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: oklch(80% 0.2 50);
+}
+@property --secondary-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: oklch(80% 0.2 200);
+}
+@property --triary-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: oklch(80% 0.2 30);
+}
+@property --quaternary-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: oklch(80% 0.2 150);
 }
 
 h4 {
   color: var(--primary-color);
+  --primary-color: oklch(120% 0.3 80);
 }
 
 p {
