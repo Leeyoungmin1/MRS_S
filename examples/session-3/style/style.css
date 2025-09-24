@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
+
 div {
   padding: 20px;
   margin: 10px 0;
@@ -105,7 +107,7 @@ h1 {
 
 /* 글꼴 */
 .font-text {
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", Courier, monospace monospace;
 }
 
 /* 정렬 */
@@ -155,10 +157,10 @@ h1 {
 /* @규칙 */
 
 /* @import - 웹폰트 불러오기 */
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
 
 body {
-  font-family: 'Nanum Pen Script', cursive;
+  font-family: "Nanum Pen Script", cursive;
   background-color: white;
   color: black;
   padding: 20px;
